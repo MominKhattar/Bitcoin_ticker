@@ -78,6 +78,11 @@ class _PriceScreenState extends State<PriceScreen> {
               ),
             ),
           ),
+
+
+          //Forr Andriod
+
+
           Container(
             height: 150.0,
             alignment: Alignment.center,
@@ -96,6 +101,17 @@ class _PriceScreenState extends State<PriceScreen> {
               },
             ),
           ),
+
+// for Iphone
+          //
+          // Container(
+          //   height: 150.0,
+          //   alignment: Alignment.center,
+          //   padding: EdgeInsets.only(bottom: 30.0),
+          //   color: Colors.lightBlue,
+          //   child: dropDownforAndriodIos.getIosDropDown(),
+          // ),
+
         ],
       ),
     );
