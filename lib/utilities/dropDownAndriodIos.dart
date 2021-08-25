@@ -30,7 +30,7 @@ class DropDownforAndriodIos {
         );
   }
 
-  getIosDropDown() {
+  getIosDropDown({required onSelectedItemChanged}) {
     List<Widget> dropDownItems = [];
     for (var currency in currenciesList) {
       var newItems = Text(currency);
@@ -39,9 +39,14 @@ class DropDownforAndriodIos {
     return CupertinoPicker(
       itemExtent: 32,
       backgroundColor: Colors.lightBlue,
-      onSelectedItemChanged: (selectedIndex) {
-        print(selectedIndex);
-      },
+      onSelectedItemChanged: onSelectedItemChanged,
+      //Put this
+      //
+      // (selectedIndex) {
+      //         print(selectedIndex);
+      //       },
+
+
       children: dropDownItems,
     );
   }
