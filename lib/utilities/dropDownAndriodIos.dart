@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import '../coin_data.dart';
 
 class DropDownforAndriodIos {
-  String selectedCurrency = "USD";
 
-  DropdownButton<String>? getAndriodDropDownButton({onChanged}) {
+  DropdownButton<String>? getAndriodDropDownButton({onChanged ,selectedCurrency}) {
     List<DropdownMenuItem<String>> dropDownItems = [];
     for (String currency in currenciesList) {
       var newItems = DropdownMenuItem(
@@ -16,7 +15,8 @@ class DropDownforAndriodIos {
       dropDownItems.add(newItems);
     }
     return DropdownButton<String>(
-        value: selectedCurrency, items: dropDownItems, onChanged: onChanged
+        value: selectedCurrency,
+        items: dropDownItems, onChanged: onChanged
 
         /*   Put this value in onChanged
       onChanged: (value) {

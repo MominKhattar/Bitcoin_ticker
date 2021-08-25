@@ -31,9 +31,9 @@ class _PriceScreenState extends State<PriceScreen> {
     updateUi(currencyData);
   }
 
-  Future<Map<String, dynamic>> getdata() async {
+  Future<Map<String, dynamic>> getdata({selectedcurrency = "USD"}) async {
     NetworkHelper networkHelper =
-        NetworkHelper(url: '$bitcoinApi/BTC/USD?apikey=$apiKey');
+        NetworkHelper(url: '$bitcoinApi/BTC/$selectedCurrency?apikey=$apiKey');
     var currencyData = await networkHelper.getData();
     return currencyData;
   }
@@ -84,10 +84,15 @@ class _PriceScreenState extends State<PriceScreen> {
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
             child: dropDownforAndriodIos.getAndriodDropDownButton(
-              onChanged: (value) {
-                setState(() {
-                  selectedCurrency = value;
-                });
+              selectedCurrency: selectedCurrency,
+              onChanged: (value) async {
+                selectedCurrency = value;
+                var currencData =
+                    await getdata(selectedcurrency: selectedCurrency);
+                updateUi(currencData);
+                setState(
+                  () {},
+                );
               },
             ),
           ),
