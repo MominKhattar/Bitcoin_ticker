@@ -12,11 +12,11 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String? criptoName;
-  String? currencyName;
-  int? rate;
+  String criptoName = "";
+  String currencyName = "";
+  int rate = 0;
 
-  String selectedCurrency = "PKR";
+  String selectedCurrency = "USD";
 
   DropDownforAndriodIos dropDownforAndriodIos = DropDownforAndriodIos();
 
@@ -39,10 +39,12 @@ class _PriceScreenState extends State<PriceScreen> {
   }
 
   void updateUi(Map<String, dynamic> currencyData) {
-    criptoName = currencyData['asset_id_base'];
-    currencyName = currencyData['asset_id_quote'];
-    double dobrate = currencyData['rate'];
-    rate = dobrate.toInt();
+    setState(() {
+      criptoName = currencyData['asset_id_base'];
+      currencyName = currencyData['asset_id_quote'];
+      double dobrate = currencyData['rate'];
+      rate = dobrate.toInt();
+    });
   }
 
   @override
@@ -76,16 +78,19 @@ class _PriceScreenState extends State<PriceScreen> {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text("Click Me"),
-          ),
           Container(
-              height: 150.0,
-              alignment: Alignment.center,
-              padding: EdgeInsets.only(bottom: 30.0),
-              color: Colors.lightBlue,
-              child: dropDownforAndriodIos.getIosDropDown()),
+            height: 150.0,
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(bottom: 30.0),
+            color: Colors.lightBlue,
+            child: dropDownforAndriodIos.getAndriodDropDownButton(
+              onChanged: (value) {
+                setState(() {
+                  selectedCurrency = value;
+                });
+              },
+            ),
+          ),
         ],
       ),
     );
