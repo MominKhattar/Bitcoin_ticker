@@ -1,12 +1,13 @@
+import 'package:bitcoin_ticker/services/network.dart';
+import 'package:bitcoin_ticker/utilities/dropDownAndriodIos.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import 'coin_data.dart';
 
 const apiKey = 'E0CB308A-B831-4785-BDC7-0637357FC5DE';
+const bitcoinApi = 'https://rest.coinapi.io/v1/exchangerate';
 
 class PriceScreen extends StatefulWidget {
+
   @override
   _PriceScreenState createState() => _PriceScreenState();
 }
@@ -14,41 +15,22 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   String selectedCurrency = "PKR";
 
-  DropdownButton<String>? getAndriodDropDownButton() {
-    List<DropdownMenuItem<String>> dropDownItems = [];
-    for (String currency in currenciesList) {
-      var newItems = DropdownMenuItem(
-        child: Text(currency),
-        value: currency,
-      );
-      dropDownItems.add(newItems);
-    }
-    return DropdownButton<String>(
-        value: selectedCurrency,
-        items: dropDownItems,
-        onChanged: (value) {
-          setState(
-            () {
-              selectedCurrency = value.toString();
-            },
-          );
-        });
+
+  DropDownforAndriodIos dropDownforAndriodIos =DropDownforAndriodIos();
+
+  @override
+  void initState(){
+  print(getdata());
+
+  super.initState();
   }
 
-   getIosDropDown() {
-    List<Widget> dropDownItems = [];
-    for (var currency in currenciesList) {
-      var newItems = Text(currency);
-      dropDownItems.add(newItems);
-    }
-    return CupertinoPicker(
-      itemExtent: 32,
-      backgroundColor: Colors.lightBlue,
-      onSelectedItemChanged: (selectedIndex) {
-        print(selectedIndex);
-      },
-      children: dropDownItems,
-    );
+
+  Future<dynamic> getdata() async {
+    NetworkHelper networkHelper =
+    NetworkHelper(url: '$bitcoinApi/BTC/USD?apikey=$apiKey');
+    var currencyData = await networkHelper.getData();
+    return currencyData;
   }
 
   @override
@@ -82,13 +64,20 @@ class _PriceScreenState extends State<PriceScreen> {
               ),
             ),
           ),
+          ElevatedButton(
+            onPressed: () {
+            },
+            child: Text("Click Me"),
+          ),
           Container(
             height: 150.0,
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: getIosDropDown(),
-          ),
+            child: dropDownforAndriodIos.getIosDropDown()
+              ),
+
+
         ],
       ),
     );
